@@ -19,7 +19,7 @@ public:
     Passenger();
 
     /* Parameterized Constructor */
-    Passenger(const string &n, const MealType &mealPref, const string &ffn = "NONE");
+    Passenger(const string &n, const MealType &mealPref, const string &ffn);
 
     /* Copy Constructor */
     Passenger(const Passenger &p);
