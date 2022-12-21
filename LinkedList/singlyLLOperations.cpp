@@ -72,6 +72,72 @@ public:
         n->next = newNode;
     }
 
+    Node* deleteFirst(){
+        if(this->head == NULL){
+            cout << "---- Invalid Delete Operation ----" << endl;
+            cout << "Linked List is empty. Please try adding some items." << endl << endl;
+            return NULL;
+        }
+
+        Node *temp = this->head;
+        size--;
+        this->head = this->head->next;
+        temp->next = NULL;
+        return temp;
+    }
+
+    Node* deleteLast(){
+        if(this->head == NULL){
+            cout << "---- Invalid Delete Operation ----" << endl;
+            cout << "Linked List is empty. Please try adding some items." << endl << endl;
+            return NULL;
+        } else if(this->size == 1){
+            Node *temp = this->deleteFirst();
+            return temp;
+        }
+
+        Node *n = this->head;
+        Node *temp = NULL;
+        for (int i = 1; i < this->size - 1; ++i) {
+            n = n->next;
+        }
+
+        temp = n->next;
+        n->next = NULL;
+        size--;
+        return temp;
+    }
+
+    Node* deleteAt(int position){
+        if(position < 1){
+            cout << "---- Invalid Delete Operation ----" << endl;
+            cout << "Position should be greater than 1." << endl << endl;
+            return NULL;
+        }
+        else if (position > this->size) {
+            cout << "---- Invalid Delete Operation ----" << endl;
+            cout << "Position cannot be greater than size." << endl << endl;
+            return NULL;
+        } else if (position == 1) {
+            Node *temp = this->deleteFirst();
+            return temp;
+        } else if (position == this->size) {
+            Node *temp = this->deleteLast();
+            return temp;
+        }
+
+        Node *prev = NULL;
+        Node *current = this->head;
+        for (int i = 1; i < position; ++i){
+            prev = current;
+            current = current->next;
+        }
+        prev->next = current->next;
+        current->next = NULL;
+
+        return current;
+    }
+
     void display(){
         Node *n = this->head;
         while(n->next != NULL){
@@ -101,6 +167,26 @@ int main(){
     sll.insert(1, 8); // at beginning
     sll.insert(12, -3); // at end
 
+    cout << "Before Deleting: ";
+    sll.display();
+
+    Node *deletedNode = NULL;
+    deletedNode = sll.deleteFirst();
+    cout << "Deleted Data: " << deletedNode->data << endl;
+    deletedNode = sll.deleteFirst();
+    cout << "Deleted Data: " << deletedNode->data << endl;
+
+    deletedNode = sll.deleteLast();
+    cout << "Deleted Data: " << deletedNode->data << endl;
+    deletedNode = sll.deleteLast();
+    cout << "Deleted Data: " << deletedNode->data << endl;
+
+    deletedNode = sll.deleteAt(3);
+    cout << "Deleted Data: " << deletedNode->data << endl;
+    deletedNode = sll.deleteAt(5);
+    cout << "Deleted Data: " << deletedNode->data << endl;
+
+    cout << "After Deleting: ";
     sll.display();
     return 0;
 }
